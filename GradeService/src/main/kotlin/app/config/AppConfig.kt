@@ -12,6 +12,7 @@ data class AppConfig(
     @Valid val kafka: KafkaProperties,
     @Valid val transport: TransportProperties,
     @Valid val notificationService: NotificationServiceProperties,
+    @Valid val studentService: StudentServiceProperties,
 ) {
 
     data class KafkaProperties(@NotEmpty val bootstrapServers: String,
@@ -20,7 +21,9 @@ data class AppConfig(
 
     data class Topics(@NotEmpty val email: String)
 
-    data class TransportProperties(@NotEmpty val type: TransportEnum)
+    data class TransportProperties(@NotEmpty val type: String)
 
     data class NotificationServiceProperties(@NotEmpty val url: String)
+
+    data class StudentServiceProperties(@NotEmpty val url: String)
 }

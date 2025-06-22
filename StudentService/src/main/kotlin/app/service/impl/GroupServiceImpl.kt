@@ -4,6 +4,8 @@ import app.dto.GroupListDTO
 import app.dto.GroupStudentDTO
 import app.entity.Group
 import app.entity.Student
+import app.exceptions.InvalidDataException
+import app.exceptions.NotFoundDataException
 import app.repository.GroupRepository
 import app.service.GroupService
 import org.springframework.stereotype.Service
@@ -12,14 +14,14 @@ import org.springframework.stereotype.Service
 class GroupServiceImpl(private val groupRepository: GroupRepository) : GroupService {
 
     override fun findByName(name: String): Group = groupRepository.findByName(name)
-        ?: throw RuntimeException("Группа c названием = $name не найдена.");
+        ?: throw NotFoundDataException("Группа c названием = $name не найдена.");
 
     override fun findById(id: Long): Group = groupRepository.findById(id)
-        .orElseThrow { RuntimeException("Группа c id = $id не найдена.") }
+        .orElseThrow { NotFoundDataException("Группа c id = $id не найдена.") }
 
     override fun createGroup(name: String): Group {
         if (groupRepository.existsGroupByName(name)) {
-            throw RuntimeException("Группа с названием = $name уже существует.")
+            throw InvalidDataException("Группа с названием = $name уже существует.")
         }
 
         val group = Group(name = name)

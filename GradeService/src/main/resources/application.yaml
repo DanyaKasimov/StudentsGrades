@@ -1,23 +1,25 @@
 app:
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     topics:
       email: email
   transport:
-    type: KAFKA
+    type: ${TRANSPORT_TYPE}
   notification-service:
-    url: http://localhost:8100
+    url: ${NOTIFICATION_SERVICE_URL}
+  student-service:
+    url: ${STUDENT_SERVICE_URL}
 
 server:
-  port: 8001
+  port: ${GRADE_PORT}
 
 spring:
   application:
     name: grade-service
   datasource:
-    url: jdbc:postgresql://localhost:5433/db
-    username: postgres
-    password: root
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASS}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -26,8 +28,6 @@ spring:
     show-sql: false
 
 logging:
-  file:
-    path: ./GradeService/logs
   level:
     root: info
     org:

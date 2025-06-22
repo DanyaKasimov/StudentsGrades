@@ -2,6 +2,7 @@ package app.service.impl
 
 import app.dto.SubjectsListDTO
 import app.entity.Subject
+import app.exceptions.NotFoundDataException
 import app.repository.SubjectRepository
 import app.service.SubjectService
 import org.springframework.stereotype.Service
@@ -10,19 +11,15 @@ import org.springframework.stereotype.Service
 class SubjectServiceImpl(private val subjectRepository: SubjectRepository) : SubjectService {
 
     override fun addSubject(name: String): Subject {
-        require(subjectRepository.existByName(name)) {
-            "Такой предмет уже существует"
-        }
-
         val subject = Subject(name = name)
         return subjectRepository.save(subject)
     }
 
     override fun getSubjectByName(name: String): Subject = subjectRepository.findByName(name) ?:
-        throw RuntimeException("Предмет [$name] не найден")
+        throw NotFoundDataException("Предмет [$name] не найден")
 
     override fun getSubjectById(id: Long): Subject = subjectRepository.findById(id).orElseThrow {
-        throw RuntimeException("Предмет c id = $id не найден") }
+        throw NotFoundDataException("Предмет c id = $id не найден") }
 
     override fun deleteSubject(name: String) {
         val subject = getSubjectByName(name)

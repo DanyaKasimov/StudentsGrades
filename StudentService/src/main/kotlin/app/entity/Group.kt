@@ -1,11 +1,13 @@
 package app.entity
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
+@Table(name = "groups")
 data class Group(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,8 @@ data class Group(
     @Column(nullable = false, name = "created_at", updatable = false)
     var createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @OneToMany(mappedBy = "group")
-    var students: MutableList<Student> = mutableListOf(),
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonManagedReference
+    var students: MutableList<Student> = mutableListOf()
 ) {
 }

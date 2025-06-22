@@ -1,13 +1,13 @@
 app:
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     group: email-group
     topics:
       email: email
 
 
 server:
-  port: 8100
+  port: ${NOTIFICATION_PORT}
 
 spring:
   application:
@@ -15,8 +15,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ivanemail1234567890@gmail.com
-    password: xdux kmya woic vnlf
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     protocol: smtp
     properties:
       mail:
@@ -35,8 +35,6 @@ spring:
     debug: true
 
 logging:
-  file:
-    path: ./EmailService/logs
   level:
     root: info
     org:

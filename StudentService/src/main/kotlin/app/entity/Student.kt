@@ -1,5 +1,6 @@
 package app.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -7,6 +8,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
+@Table(name = "students")
 data class Student (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +38,8 @@ data class Student (
     var createdAt: LocalDateTime = LocalDateTime.now(),
 
     @ManyToOne
-    @JoinColumn(name = "group_id", nullable = false)
-    var group: Group = Group(),
+    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
+    var group: Group = Group()
 ) {}
 

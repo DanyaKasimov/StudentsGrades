@@ -1,9 +1,9 @@
 package app.config
 
 import app.constants.TransportEnum
-import app.service.impl.notification.NotificationDelegatorService
-import app.service.impl.notification.NotificationHTTPService
-import app.service.impl.notification.NotificationKAFKAService
+import app.service.notification.NotificationDelegatorService
+import app.service.notification.NotificationHTTPService
+import app.service.notification.NotificationKAFKAService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -16,8 +16,9 @@ open class TransportConfig(private val appConfig: AppConfig) {
     open fun notificationService(httpService: NotificationHTTPService,
                                  kafkaService: NotificationKAFKAService): NotificationDelegatorService {
         return when (appConfig.transport.type) {
-            TransportEnum.KAFKA -> NotificationDelegatorService(httpService, kafkaService)
-            TransportEnum.HTTP -> NotificationDelegatorService(kafkaService, httpService)
+            "HTTP" -> NotificationDelegatorService(httpService, kafkaService)
+            "KAFKA" -> NotificationDelegatorService(kafkaService, httpService)
+            else -> { throw RuntimeException("") }
         }
     }
 }
