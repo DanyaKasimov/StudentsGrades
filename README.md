@@ -7,7 +7,7 @@ Pet-проект на kotlin
 ## Stack
 
 * Kotlin
-* Spring (Data JPA, Cloud)
+* Spring (Boot, Data JPA, Cloud)
 * Postgres
 * Kafka
 * Hibernate
