@@ -7,7 +7,7 @@ import app.service.GroupService
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class GroupController(private val groupService: GroupService) : GroupAPI {
+open class GroupController(private val groupService: GroupService) : GroupAPI {
 
     override fun getGroupByName(name: String): Group = groupService.findByName(name)
 

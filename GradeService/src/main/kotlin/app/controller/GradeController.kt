@@ -7,7 +7,7 @@ import app.service.GradeService
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class GradeController(private val gradeService: GradeService) : GradeAPI {
+open class GradeController(private val gradeService: GradeService) : GradeAPI {
 
     override fun addGrade(studentId: Long,
                           mark: String,

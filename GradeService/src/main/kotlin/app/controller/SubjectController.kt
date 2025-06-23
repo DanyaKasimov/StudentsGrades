@@ -7,7 +7,7 @@ import app.service.SubjectService
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class SubjectController(private val subjectService: SubjectService) : SubjectAPI {
+open class SubjectController(private val subjectService: SubjectService) : SubjectAPI {
 
     override fun addSubject(name: String): Subject = subjectService.addSubject(name)
 

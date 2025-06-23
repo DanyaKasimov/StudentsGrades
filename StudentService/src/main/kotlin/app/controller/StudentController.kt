@@ -8,7 +8,7 @@ import app.service.StudentService
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class StudentController(private val studentService: StudentService) : StudentAPI {
+open class StudentController(private val studentService: StudentService) : StudentAPI {
 
     override fun getStudentById(id: Long): StudentResponseDTO = studentService.getStudentById(id)
 
