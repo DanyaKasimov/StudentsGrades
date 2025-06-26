@@ -30,4 +30,4 @@ transport:
 
 Взаимодействие по HTTP происходит через OpenFeign
 
-Настроен CI/CD в GitHub Actions
+Настроен CI в GitHub Actions
